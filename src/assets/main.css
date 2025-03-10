@@ -1,35 +1,532 @@
-@import './base.css';
+/* Rick and Morty Explorer Theme */
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+:root {
+  /* Palette de couleurs Rick and Morty */
+  --portal-bg: #1a1a2e;
+  --portal-text: #e1e1e6;
+  --portal-accent: #6ee660;
+  --portal-highlight: #84e7e3;
+  --portal-dark: #0c0c1d;
+  --portal-green: #97ce4c;
+  --portal-bright-green: #b7fb46;
+  --portal-blue: #00b5cc;
+  --portal-purple: #741fa8;
+  --portal-stars: #ffffff;
+  --portal-pink: #fb6099;
+  --border-radius: 6px;
+  --glow: 0 0 8px;
 }
 
-a,
-.green {
+/* Animation keyframes */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); filter: blur(0.5px); }
+}
+
+@keyframes portal-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(1.2); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px var(--portal-green); }
+  50% { box-shadow: 0 0 15px var(--portal-green), 0 0 20px var(--portal-blue); }
+  100% { box-shadow: 0 0 5px var(--portal-green); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+/* Styles généraux */
+body {
+  background-color: var(--portal-bg);
+  color: var(--portal-text);
+  font-family: 'Roboto', 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Typographie */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--portal-accent);
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+h1 {
+  font-size: 2.6rem;
+  text-shadow: 0 0 10px var(--portal-accent);
+}
+
+h2 {
+  font-size: 2.2rem;
+  text-shadow: 0 0 8px var(--portal-green);
+}
+
+h3 {
+  font-size: 1.8rem;
+}
+
+p {
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+}
+
+a {
+  color: var(--portal-highlight);
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+  transition: color 0.3s;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+a:hover {
+  color: var(--portal-bright-green);
+  text-shadow: 0 0 5px var(--portal-accent);
+}
+
+/* Structure principale */
+.portal-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Container Rick and Morty */
+.rick-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem;
+  background-color: rgba(12, 12, 29, 0.7);
+  border: 2px solid var(--portal-green);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(151, 206, 76, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.rick-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, var(--portal-green), var(--portal-blue), var(--portal-purple), var(--portal-pink));
+  z-index: 5;
+}
+
+/* Barre de navigation */
+.nav-portal {
+  background-color: rgba(10, 10, 25, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--portal-green);
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--portal-green);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-shadow: 0 0 8px var(--portal-green);
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+/* Portal icon */
+.portal-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--portal-green);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 15px var(--portal-green);
+  animation: pulse 3s infinite;
+}
+
+.portal-swirl {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  background: conic-gradient(
+    from 0deg,
+    var(--portal-bg),
+    var(--portal-blue),
+    var(--portal-purple),
+    var(--portal-green),
+    var(--portal-bg)
+  );
+  border-radius: 50%;
+  animation: portal-spin 3s linear infinite;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  color: var(--portal-text);
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+}
+
+.nav-link:hover {
+  color: var(--portal-bright-green);
+  background-color: rgba(151, 206, 76, 0.1);
+}
+
+.nav-link.active {
+  color: var(--portal-green);
+  background-color: rgba(151, 206, 76, 0.15);
+  box-shadow: 0 0 8px rgba(151, 206, 76, 0.3);
+}
+
+/* Fond d'étoiles */
+.star-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background-color: var(--portal-stars);
+  border-radius: 50%;
+  animation: twinkle linear infinite;
+}
+
+/* Cards pour les personnages Rick and Morty */
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-top: 1.5rem;
+}
+
+.character-card {
+  background-color: rgba(26, 26, 46, 0.8);
+  border: 2px solid var(--portal-blue);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.6s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.character-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 5px 20px rgba(0, 181, 204, 0.5);
+}
+
+.card-header {
+  padding: 1rem;
+  background-color: rgba(10, 10, 25, 0.7);
+  border-bottom: 2px solid var(--portal-green);
+}
+
+.character-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--portal-accent);
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 0 5px var(--portal-accent);
+}
+
+.image-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.character-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--portal-green);
+  box-shadow: 0 0 15px rgba(110, 230, 96, 0.6);
+  transition: all 0.3s;
+}
+
+.character-card:hover .character-image {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(110, 230, 96, 0.8);
+}
+
+.character-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex-grow: 1;
+  background-color: rgba(12, 12, 29, 0.5);
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(151, 206, 76, 0.2);
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--portal-highlight);
+  min-width: 80px;
+}
+
+.info-value {
+  color: var(--portal-text);
+}
+
+.character-status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-alive {
+  background-color: var(--portal-green);
+  color: #111;
+  box-shadow: 0 0 8px rgba(110, 230, 96, 0.6);
+}
+
+.status-dead {
+  background-color: var(--portal-pink);
+  color: white;
+  box-shadow: 0 0 8px rgba(251, 96, 153, 0.6);
+}
+
+.status-unknown {
+  background-color: #888;
+  color: white;
+  box-shadow: 0 0 8px rgba(136, 136, 136, 0.6);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+  
+  .character-image {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .character-name {
+    font-size: 1.2rem;
   }
 }
 
-@media (min-width: 1024px) {
-  body {
+/* Schwifty font fallback */
+@font-face {
+  font-family: 'Schwifty';
+  src: local('Comic Sans MS');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Pagination améliorée */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  position: relative;
+  padding: 1rem 0;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 80%;
+  flex-wrap: wrap;
+}
+
+.page-btn {
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(26, 26, 46, 0.8);
+  border: 2px solid var(--portal-blue);
+  color: var(--portal-text);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+  margin: 0 0.2rem;
+  padding: 0 0.8rem;
+}
+
+.page-btn:hover {
+  background-color: rgba(0, 181, 204, 0.2);
+  border-color: var(--portal-green);
+  transform: translateY(-2px);
+}
+
+.page-btn.active {
+  background-color: var(--portal-green);
+  color: #111;
+  border-color: var(--portal-accent);
+  box-shadow: 0 0 10px rgba(110, 230, 96, 0.7);
+}
+
+.nav-btn {
+  min-width: 120px;
+  height: 45px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.nav-btn.prev-btn {
+  background: linear-gradient(45deg, var(--portal-blue), var(--portal-purple));
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+.nav-btn.next-btn {
+  background: linear-gradient(45deg, var(--portal-green), var(--portal-blue));
+  color: #111;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+.nav-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--portal-pink), var(--portal-purple));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-btn.next-btn::before {
+  background: linear-gradient(45deg, var(--portal-bright-green), var(--portal-green));
+}
+
+.nav-btn:hover::before {
+  opacity: 1;
+}
+
+.nav-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(151, 206, 76, 0.6);
+}
+
+.nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.page-indicator {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--portal-dark);
+  color: var(--portal-highlight);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--portal-blue);
+  box-shadow: 0 0 8px rgba(0, 181, 204, 0.5);
+}
+
+/* Pour les écrans plus petits */
+@media (max-width: 768px) {
+  .pagination-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-buttons {
+    width: 100%;
     display: flex;
-    place-items: center;
+    justify-content: space-between;
   }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+  
+  .nav-btn {
+    min-width: 110px;
+  }
+  
+  .pagination-wrapper {
+    max-width: 100%;
+    margin: 1rem 0;
+  }
+  
+  .page-btn {
+    min-width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
   }
 }
