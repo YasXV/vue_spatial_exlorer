@@ -61,6 +61,7 @@ onMounted(() => {
   <h1 class="portal-title">Rick and Morty Characters</h1>
   <p>Explore Rick and Morty's universe and learn more about it.</p>
   <h4>J'AI CHANGER QUELQUE CHOSE</h4>
+  je reteste pour voir 
   <div class="character-grid">
     <div v-for="char in characters" :key="char.id" class="character-card">
       <div class="card-header">
