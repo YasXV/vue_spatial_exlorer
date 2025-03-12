@@ -22,6 +22,11 @@ npm install
 npm run dev
 ```
 
+The website is launched on an Azure Server :
+```sh
+https://poutouweb-bgcpcbdzhzhwf3ej.canadacentral-01.azurewebsites.net/
+```
+
 ### Compile and Minify for Production
 
 ```sh
