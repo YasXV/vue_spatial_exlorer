@@ -1,6 +1,6 @@
 # vue_spatial_explorer
 
-This template should help get you started developing with Vue 3 in Vite.
+This website aims to utilize Vue.js functionnalities and cloud technologies as much as possible through the developpement of a rick and morty explorer that is launched on an Azure server with a CI/CD pipeline through GitHub Actions. Have Fun exploring the universe (Project still in developpement) Have fun ^.^ 
 
 ## Recommended IDE Setup
 
