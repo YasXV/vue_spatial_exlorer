@@ -247,7 +247,7 @@ a:hover {
 
 .character-card {
   background-color: rgba(26, 26, 46, 0.8);
-  border: 2px solid var(--portal-blue);
+  border: 2px solid var(--portal-green);
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.6s;
@@ -258,8 +258,8 @@ a:hover {
 }
 
 .character-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 5px 20px rgba(0, 181, 204, 0.5);
+  transform: translateY(-10px);
+  box-shadow: 0 5px 20px var(--portal-bright-green)
 }
 
 .card-header {
@@ -295,7 +295,7 @@ a:hover {
 
 .character-card:hover .character-image {
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(110, 230, 96, 0.8);
+  box-shadow: 0 0 15px rgba(110, 230, 96, 0.8);
 }
 
 .character-info {
@@ -377,6 +377,10 @@ a:hover {
   font-weight: normal;
   font-style: normal;
 }
+
+
+
+
 
 /* Pagination améliorée */
 .pagination-container {
@@ -529,4 +533,395 @@ a:hover {
     height: 35px;
     font-size: 0.9rem;
   }
+}
+
+/* Styles pour la barre de recherche */
+.search-bar {
+  position: relative;
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  background-color: rgba(12, 12, 29, 0.7);
+  color: var(--portal-text);
+  border: 2px solid var(--portal-blue);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 181, 204, 0.2);
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--portal-green);
+  box-shadow: 0 0 15px rgba(110, 230, 96, 0.6);
+  transform: scale(1.02);
+}
+
+.search-input::placeholder {
+  color: rgba(225, 225, 230, 0.6);
+  font-style: italic;
+}
+
+/* Boutons de navigation lumineux */
+.nav-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem auto;
+  flex-wrap: wrap;
+}
+
+.portal-nav-btn {
+  position: relative;
+  padding: 0.9rem 1.8rem;
+  min-width: 180px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 10px rgba(151, 206, 76, 0.4);
+  animation: float 3s infinite ease-in-out;
+}
+
+.portal-nav-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.portal-nav-btn:hover::before {
+  left: 100%;
+}
+
+.portal-nav-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 5px 20px rgba(151, 206, 76, 0.7);
+}
+
+/* Variantes de boutons */
+.btn-characters {
+  background: linear-gradient(45deg, var(--portal-green), var(--portal-blue));
+  color: white;
+  animation-delay: 0s;
+}
+
+.btn-locations {
+  background: linear-gradient(45deg, var(--portal-blue), var(--portal-purple));
+  color: white;
+  animation-delay: 0.2s;
+}
+
+.btn-episodes {
+  background: linear-gradient(45deg, var(--portal-purple), var(--portal-pink));
+  color: white;
+  animation-delay: 0.4s;
+}
+
+/* Résultats de recherche */
+.search-results {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: rgba(12, 12, 29, 0.7);
+  border: 2px solid var(--portal-blue);
+  border-radius: 12px;
+  animation: glow 3s infinite;
+}
+
+.results-title {
+  font-size: 1.5rem;
+  color: var(--portal-green);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 8px var(--portal-green);
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: var(--portal-pink);
+}
+
+/* Animation pour l'apparition des résultats */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Cartes pour les épisodes */
+.episode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-top: 1.5rem;
+}
+
+
+
+
+.episode-header {
+  padding: 1rem;
+  background-color: rgba(10, 10, 25, 0.7);
+  border-bottom: 2px solid var(--portal-blue);
+}
+
+.episode-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--portal-highlight);
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 0 5px var(--portal-highlight);
+}
+
+.episode-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-bottom: 3px solid var(--portal-blue);
+  transition: all 0.3s;
+}
+
+.episode-image-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(0, 181, 204, 0.3) 0%, rgba(26, 26, 46, 0.8) 100%);
+}
+
+.episode-card:hover .episode-image {
+  filter: brightness(1.2);
+}
+
+.episode-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex-grow: 1;
+  background-color: rgba(12, 12, 29, 0.5);
+}
+
+.episode-code {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: var(--portal-blue);
+  color: white;
+  box-shadow: 0 0 8px rgba(0, 181, 204, 0.6);
+  align-self: flex-start;
+}
+
+/* Cartes pour les locations */
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-top: 1.5rem;
+}
+
+.location-card {
+  background-color: rgba(26, 26, 46, 0.8);
+  border: 2px solid var(--portal-purple);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.6s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.location-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 5px 20px var(--portal-purple);
+}
+
+.location-header {
+  padding: 1rem;
+  background-color: rgba(10, 10, 25, 0.7);
+  border-bottom: 2px solid var(--portal-purple);
+}
+
+.location-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--portal-pink);
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 0 5px var(--portal-pink);
+}
+
+.location-image-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(116, 31, 168, 0.3) 0%, rgba(26, 26, 46, 0.8) 100%);
+}
+
+.location-image {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--portal-purple);
+  box-shadow: 0 0 15px rgba(116, 31, 168, 0.6);
+  transition: all 0.3s;
+}
+
+.location-card:hover .location-image {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(116, 31, 168, 0.8);
+}
+
+.location-info {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  flex-grow: 1;
+  background-color: rgba(12, 12, 29, 0.5);
+}
+
+.location-type {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: var(--portal-purple);
+  color: white;
+  box-shadow: 0 0 8px rgba(116, 31, 168, 0.6);
+  align-self: flex-start;
+}
+
+.location-dimension {
+  color: var(--portal-pink);
+  font-weight: 600;
+  text-shadow: 0 0 3px rgba(251, 96, 153, 0.4);
+}
+
+/* Ajout d'une animation pour les cartes */
+@keyframes card-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.episode-card, .location-card .character-card{
+  animation: card-appear 0.5s ease forwards;
+}
+
+/* Animation de surbrillance pour les cartes */
+@keyframes card-highlight {
+  0% {
+    box-shadow: 0 0 5px var(--portal-blue);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--portal-blue), 0 0 20px var(--portal-green);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--portal-blue);
+  }
+}
+
+/* Version pour les locations */
+@keyframes location-highlight {
+  0% {
+    box-shadow: 0 0 5px var(--portal-purple);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--portal-purple), 0 0 20px var(--portal-pink);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--portal-purple);
+  }
+}
+
+.location-card:hover {
+  animation: location-highlight 2s infinite;
+}
+
+/* Styles responsifs */
+@media (max-width: 768px) {
+  .episode-grid, .location-grid .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+  
+  .location-image {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .episode-name, .location-name .character-name {
+    font-size: 1.2rem;
+  }
+}
+
+.episode-card {
+  background-color: rgba(26, 26, 46, 0.8);
+  border: 2px solid var(--portal-blue);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.6s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Animation spécifique pour les episodes au survol */
+@keyframes episode-highlight {
+  0% {
+    box-shadow: 0 0 5px var(--portal-blue);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--portal-blue), 0 0 20px var(--portal-highlight);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--portal-blue);
+  }
+}
+
+.episode-card {
+  animation: episode-highlight 2s;
+}
+
+
+.episode-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 15px var(--portal-blue), 0 0 20px var(--portal-highlight);
+  animation: none; /* Supprime l’animation au hover */
 }

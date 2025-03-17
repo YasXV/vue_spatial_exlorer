@@ -57,7 +57,7 @@ export const getAllCharacters = async() => {
     for(let i=1;i<=nbPages;i++){
         try{
             const response = await getCharacters(i);
-            characters = characters.concat(response.data.results);
+            characters = characters.concat(response);
         }
         catch(error){
             console.error("Error for getting all characters",error);
@@ -94,6 +94,15 @@ export const getAllEpisodes = async() => {
         }
     }
     return episodes;
+}
+
+export const getALL = async() => {
+    // return an object with 3 keys: characters, locations and episodes
+    return {
+        characters: await getAllCharacters(),
+        locations: await getAllLocations(),
+        episodes: await getAllEpisodes(),
+    }
 }
 
 export default apiClient;

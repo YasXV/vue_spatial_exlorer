@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { 
     getCharacters as getCharactersApi, 
     getEpisodes as getEpisodesApi, 
     getLocations as getLocationsApi, 
-    getNbPages 
+    getNbPages, getALL
 } from '@/api/apicall';
 
 export const useRickMortyStore = defineStore("rickMortyStore", () => {
@@ -20,13 +20,24 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
     const totalPagesLocation = ref(1);
     const currentPageEpisode = ref(1);
     const totalPagesEpisode = ref(1);
+    const everything = ref({});
+    /*const searchQuery = ref("");
+    const numberResults = ref(0);
+    const isLoaded = ref(false);*/
 
     const getCharacters = computed(() => characters.value);
+    const getEverything = computed(() => everything.value);
     const getLocations = computed(() => locations.value);
     const getEpisodes = computed(() => episodes.value);
     const getCurrentPageCharacter = computed(() => currentPageCharacter.value);
     const getTotalPagesCharacter = computed(() => totalPagesCharacter.value);
     const getOnePageCharacters = computed(() => onePageCharacters.value);
+    const getCurrentPageLocation = computed(() => currentPageLocation.value);
+    const getTotalPagesLocation = computed(() => totalPagesLocation.value);
+    const getOnePageLocations = computed(() => onePageLocations.value);
+    const getCurrentPageEpisode = computed(() => currentPageEpisode.value);
+    const getTotalPagesEpisode = computed(() => totalPagesEpisode.value);
+    const getOnePageEpisodes = computed(() => onePageEpisodes.value);
 
     async function fetchCharacters(actualPageC = 1) {
         try {
@@ -78,15 +89,53 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
         }
     }
 
+    async function fetchAllEpisodes() {
+        try {
+            episodes.value = await getAllEpisodes();
+            console.log("🔍 Episodes:", episodes.value);
+        } catch (error) {
+            console.error("Error fetching episodes", error);
+        }
+        
+    }
+
     async function fetchEverything() {
         try {
-            onePageCharacters.value = await getCharactersApi();
-            onePageEpisodes.value = await getEpisodesApi();
-            onePageLocations.value = await getLocationsApi();
+            everything.value = await getALL();
+            console.log("🔍 Everything:", everything.value.characters);
+           
         } catch (error) {
             console.error("Error fetching everything", error);
         }
     }
+
+    //Everytime the searchQuery changes, we update the search results and filter them depending on the query
+    /*const filter = computed(() => {
+
+        console.log("🔍 Search queryYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy:", searchQuery.value);
+        if (!searchQuery.value.trim() || isLoaded==false) return ["poutou"];
+        const query = searchQuery.value.trim().toLowerCase();
+
+        let results = [...everything.value.characters.filter(character => character.name.toLowerCase().includes(query)),
+            ...everything.value.locations.filter(location => location.name.toLowerCase().includes(query)),
+            ...everything.value.episodes.filter(episode => episode.name.toLowerCase().includes(query))
+        ];
+        console.log("🔍 Query:", query);
+        console.log("🧐 Filtered results:", results);
+        return results;       
+    });*/
+
+    //Every time the search query changes, the number of results is updated
+   /* watch(filter, (newResults) => {
+        numberResults.value = newResults.length;
+    });
+
+    // update the search query
+    function updateSearchQuery(newQuery){
+        searchQuery.value = newQuery;  
+    };*/
+
+
 
     function deadOrAlive(status) {
         if (status === "Alive") return "status-alive";
@@ -96,18 +145,31 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
 
     return {
         characters,
+        locations,
+        episodes,
+        onePageEpisodes,
+        onePageLocations,
         onePageCharacters,
         currentPageCharacter,
         totalPagesCharacter,
         getCharacters,
+        getEverything,
+        getLocations,
         getTotalPagesCharacter,
         getOnePageCharacters,
         getCurrentPageCharacter,
+        getCurrentPageLocation,
+        getTotalPagesLocation,
+        getOnePageLocations,
+        getCurrentPageEpisode,
+        getTotalPagesEpisode,
+        getOnePageEpisodes,
         fetchNumberPages,
+        fetchAllEpisodes,
         fetchCharacters,
         fetchEpisodes,
         fetchLocations,
         fetchEverything,
-        deadOrAlive
+        deadOrAlive,
     };
 });
