@@ -925,3 +925,71 @@ a:hover {
   box-shadow: 0 0 15px var(--portal-blue), 0 0 20px var(--portal-highlight);
   animation: none; /* Supprime l’animation au hover */
 }
+
+/* Styles pour la grille de résultats de recherche */
+.search-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-top: 1.5rem;
+}
+
+/* Stylisation des conteneurs pour chaque type */
+.search-results .character-card,
+.search-results .location-card,
+.search-results .episode-card {
+  opacity: 0;
+  animation-delay: calc(0.1s * var(--animation-order, 0));
+}
+
+/* Ajout d'une animation différente pour chaque type de résultat */
+.search-results .character-card {
+  animation: card-appear 0.5s ease forwards, glow 3s infinite;
+  animation-delay: 0.1s;
+}
+
+.search-results .location-card {
+  animation: card-appear 0.5s ease forwards, location-highlight 3s infinite;
+  animation-delay: 0.2s;
+}
+
+.search-results .episode-card {
+  animation: card-appear 0.5s ease forwards, episode-highlight 3s infinite;
+  animation-delay: 0.3s;
+}
+
+/* Placeholder pour les images d'épisodes */
+.search-results .episode-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background: radial-gradient(circle, rgba(0, 181, 204, 0.3) 0%, rgba(26, 26, 46, 0.8) 100%);
+  padding: 1rem;
+}
+
+/* Placeholder pour les images de locations */
+.search-results .location-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  padding: 1rem;
+}
+
+/* Amélioration de l'apparence des résultats */
+.search-results {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: rgba(12, 12, 29, 0.8);
+  border: 2px solid var(--portal-green);
+  border-radius: 12px;
+}
+
+/* Adaptation pour les petits écrans */
+@media (max-width: 768px) {
+  .search-results-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+}

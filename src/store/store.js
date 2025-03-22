@@ -4,6 +4,7 @@ import {
     getCharacters as getCharactersApi, 
     getEpisodes as getEpisodesApi, 
     getLocations as getLocationsApi, 
+    getAllEpisodes, getAllCharacters, getAllLocations,
     getNbPages, getALL
 } from '@/api/apicall';
 
@@ -99,6 +100,24 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
         
     }
 
+    async function fetchAllCharacters() {
+        try {
+            characters.value = await getAllCharacters();
+            console.log("🔍 Characters:", characters.value);
+        } catch (error) {
+            console.error("Error fetching characters", error);
+        }        
+    }
+
+    async function fetchAllLocations() {
+        try {
+            locations.value = await getAllLocations();
+            console.log("🔍 Locations:", locations.value);
+        } catch (error) {
+            console.error("Error fetching locations", error);
+        }        
+    }
+
     async function fetchEverything() {
         try {
             everything.value = await getALL();
@@ -155,6 +174,7 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
         getCharacters,
         getEverything,
         getLocations,
+        getEpisodes,
         getTotalPagesCharacter,
         getOnePageCharacters,
         getCurrentPageCharacter,
@@ -166,6 +186,8 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
         getOnePageEpisodes,
         fetchNumberPages,
         fetchAllEpisodes,
+        fetchAllCharacters,
+        fetchAllLocations,
         fetchCharacters,
         fetchEpisodes,
         fetchLocations,

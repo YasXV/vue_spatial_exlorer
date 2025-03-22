@@ -1,11 +1,10 @@
 <script setup>
-import { useRouter } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, defineProps, watch, computed} from 'vue';
 import { useRickMortyStore } from '@/store/store';
-import SearchBar from './SearchBar.vue';
+import SearchBar from '../SearchBar.vue';
+import OneEpisode from './OneEpisode.vue';
 
 const Store = useRickMortyStore();
-const router = useRouter();
 const searchQuery = ref("");
 
 onMounted(async() => {
@@ -21,6 +20,21 @@ const updateSearchQuery = (query) => {
     //console.log("🔍 Filtered results:", filter.value);
 }
 
+const filteredEpisodes = computed(() => {
+    if (!searchQuery.value.trim()) return Store.getEpisodes;
+    const query = searchQuery.value.toLowerCase();
+    
+    return Store.getEpisodes.filter(episode =>
+        episode.name.toLowerCase().includes(query)
+    );
+});
+
+watch(searchQuery, (newVal) => {
+  console.log(filteredEpisodes.value);
+});
+
+
+
 const actualPage = ref(1);
 </script>
 
@@ -28,24 +42,9 @@ const actualPage = ref(1);
   <h1 class="portal-title">Rick and Morty Episodes</h1>
   <p>Explore all the episodes from the Rick and Morty universe.</p>
   <SearchBar @update-search-query="updateSearchQuery"/>
-  
+
   <div class="episode-grid">
-    <div v-for="episode in Store.onePageEpisodes" :key="episode.id" class="episode-card">
-      <div class="episode-header">
-        <h3 class="episode-name">{{ episode.name }}</h3>
-      </div>
-      <div class="episode-info">
-        <span class="episode-code">{{ episode.episode }}</span>
-        <div class="info-row">
-          <span class="info-label">Air Date:</span>
-          <span class="info-value">{{ episode.air_date }}</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Characters:</span>
-          <span class="info-value">{{ episode.characters?.length || 0 }} characters</span>
-        </div>
-      </div>
-    </div>
+    <OneEpisode v-for="episode in Store.onePageEpisodes" :key="episode.id" :AEpisode="episode"/>
   </div>
   
   <div class="pagination-container">

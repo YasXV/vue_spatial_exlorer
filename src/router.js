@@ -2,9 +2,9 @@ import { createWebHistory, createRouter } from "vue-router";
 import Home from "./components/Home.vue";
 import Games from "./components/Games.vue";
 import About from "./components/About.vue";
-import Episodes from "./components/Episodes.vue";
-import Locations from "./components/Locations.vue";
-import Characters from "./components/Characters.vue";
+import Episodes from "./components/Episodes/Episodes.vue";
+import Locations from "./components/Locations/Locations.vue";
+import Characters from "./components/Characters/Characters.vue";
 
 const routes = [
     {path : "/", name : "Home",component: Home},
