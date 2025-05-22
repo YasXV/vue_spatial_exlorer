@@ -43,8 +43,8 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
     async function fetchCharacters(actualPageC = 1) {
         try {
             const data = await getCharactersApi(actualPageC);
-            console.log("Data receivedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD:", data); // Ajoute ce log pour voir si l'API renvoie des données
-            onePageCharacters.value = data; // Assure-toi que `data` contient `results`
+            console.log("Data receivedDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD:", data); 
+            onePageCharacters.value = data; 
             console.log("ONE pAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAge", onePageCharacters.value);
             currentPageCharacter.value = actualPageC;
         } catch (error) {
@@ -131,7 +131,6 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
     //Everytime the searchQuery changes, we update the search results and filter them depending on the query
     /*const filter = computed(() => {
 
-        console.log("🔍 Search queryYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYy:", searchQuery.value);
         if (!searchQuery.value.trim() || isLoaded==false) return ["poutou"];
         const query = searchQuery.value.trim().toLowerCase();
 
@@ -139,8 +138,6 @@ export const useRickMortyStore = defineStore("rickMortyStore", () => {
             ...everything.value.locations.filter(location => location.name.toLowerCase().includes(query)),
             ...everything.value.episodes.filter(episode => episode.name.toLowerCase().includes(query))
         ];
-        console.log("🔍 Query:", query);
-        console.log("🧐 Filtered results:", results);
         return results;       
     });*/
 
